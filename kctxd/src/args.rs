@@ -1,4 +1,4 @@
-use clap::{arg, builder::OsStr, Command};
+use clap::{arg, Command};
 use dirs::config_local_dir;
 use thiserror::Error;
 
@@ -7,7 +7,7 @@ use std::path::PathBuf;
 pub struct Args{
   c: Command,
 
-  config_path: OsStr
+  // config_path: String
 }
 
 pub fn new() -> Result<Args, ArgsError> {
@@ -22,14 +22,14 @@ pub fn new() -> Result<Args, ArgsError> {
     None => PathBuf::new()
   };
 
-  let default_config_dir: OsStr = default_config_dir.as_os_str().into();
+  let default_config_dir: String = default_config_dir.to_string_lossy().to_string();
 
   let cmd = Command::new(env!("CARGO_CRATE_NAME"))
     .long_version("...")
-    .arg(arg!(--config <FILE> "").default_missing_value(&default_config_dir));
+    .arg(arg!(--config <FILE> "").default_value(default_config_dir));
   let a: Args = Args{
     c: cmd,
-    config_path: default_config_dir,
+    // config_path: default_config_dir,
   };
   Ok(a)
 }
