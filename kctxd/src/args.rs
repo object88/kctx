@@ -1,4 +1,5 @@
 use clap::{arg, Command};
+use common::config::Config;
 use dirs::config_local_dir;
 use thiserror::Error;
 
@@ -10,7 +11,7 @@ pub struct Args{
   // config_path: String
 }
 
-pub fn new() -> Result<Args, ArgsError> {
+pub fn new(mut cfg: &Config) -> Result<Args, ArgsError> {
   let default_config_dir: PathBuf = match config_local_dir() {
     Some(mut x) => {
       x.push("");
