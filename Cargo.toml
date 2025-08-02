@@ -14,7 +14,7 @@ clap = { version = "4.5.42", features = ["string"] }
 dirs = { version = "6.0.0" }
 log = { version = "0.4.27" }
 serde = { version = "1.0.219", features = ["derive"] }
-serde_json = { version = "1.0.140" }
+serde_json = { version = "1.0.142" }
 thiserror = { version = "2.0.12" }
 tokio = { version = "1.47.0", features = ["macros", "rt", "rt-multi-thread", "signal"] }
 tokio-util = { version = "0.7.15" }
