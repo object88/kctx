@@ -3,6 +3,7 @@ use std::{net::{IpAddr, SocketAddr}, str::FromStr};
 use async_trait::async_trait;
 use axum::{routing::get, Router};
 use common::config::Http as HttpConfig;
+use log::{info};
 use thiserror::Error;
 use tokio::net::TcpListener;
 use tokio_util::sync::CancellationToken;
@@ -52,13 +53,13 @@ impl Builder {
 #[async_trait]
 impl Runnable for Http {
   async fn run(&mut self, cancel_token: CancellationToken) {
-    println!("http started");
+    info!("http started");
     let app = self.app.take();
     let listener = self.listener.take();
     axum::serve(listener.unwrap(), app.unwrap()).with_graceful_shutdown(async move {
       cancel_token.cancelled().await 
     }).await.unwrap();
-    println!("http exited");
+    info!("http exited");
   }
 }
 

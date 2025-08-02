@@ -1,5 +1,7 @@
 use common::config::Config;
 use kctxd::{args::{self, Args}, http, lifecycle::{self, Runnable}};
+use log::info;
+use structured_logger::{async_json::new_writer, Builder};
 use thiserror::Error;
 use tokio::signal;
 use tokio_util::sync::CancellationToken;
@@ -15,6 +17,11 @@ async fn main() -> Result<(), AppError> {
 	let mut c = Config::new();
 	let a: Args = args::new(&c).unwrap();
 	a.parse();
+
+	// Set up logging
+	Builder::with_level("info")
+			.with_target_writer("*", new_writer(tokio::io::stdout()))
+			.init();
 
 	let token = CancellationToken::new();
 	let lifecycle_token = token.clone();
@@ -39,9 +46,9 @@ async fn main() -> Result<(), AppError> {
 
 	// Start lifecycle
 	let task_handle = tokio::spawn(async move {
-		println!("lifecycle started");
+		info!("lifecycle started");
 		lifecycle::run(lifecycle_token, v).await;
-		println!("lifecycle ended");
+		info!("lifecycle ended");
 	});
 	
 	tokio::select! {

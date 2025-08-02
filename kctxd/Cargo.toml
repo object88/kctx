@@ -8,12 +8,13 @@ name = "kctxd"
 path = "src/bin/main.rs"
 
 [dependencies]
-anyhow = { version = "1.0.98" }
 async-trait.workspace = true
 axum.workspace = true
 clap.workspace = true
 common = { path = "../common" }
 dirs.workspace = true
+log.workspace = true
+structured-logger = { version = "1.0.4" }
 thiserror.workspace = true
 tokio.workspace = true
 tokio-util.workspace = true

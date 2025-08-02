@@ -1,4 +1,5 @@
 use async_trait::async_trait;
+use log::{error, info};
 use tokio::task::JoinSet;
 use tokio_util::sync::CancellationToken;
 
@@ -27,8 +28,8 @@ pub async fn run(cancel_token: CancellationToken, runnables: impl IntoIterator<I
 
   while let Some(res) = set.join_next().await {
     match res {
-      Ok(_val) => println!("Task returned."),
-      Err(e) => eprintln!("Task failed: {:?}", e),
+      Ok(_val) => info!("Task returned."),
+      Err(e) => error!("Task failed: {:?}", e),
     }
   }
 }
