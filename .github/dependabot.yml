@@ -10,4 +10,4 @@ updates:
     - "*"
     schedule:
       interval: "cron"
-      cronjob: "*/5 * * * *"
+      cronjob: "0 8 * * *"
