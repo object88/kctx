@@ -9,4 +9,5 @@ updates:
     directories:
     - "*"
     schedule:
-      interval: "weekly"
+      interval: "cron"
+      cronjob: "0 8 * * *"
