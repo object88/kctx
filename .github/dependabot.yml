@@ -6,8 +6,11 @@
 version: 2
 updates:
   - package-ecosystem: "cargo"
+    commit-message:
+      include: "scope"
+      prefix: "chore"
     directories:
-    - "*"
+    - "/"
     schedule:
       interval: "cron"
       cronjob: "0 8 * * *"
