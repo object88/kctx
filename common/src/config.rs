@@ -1,6 +1,7 @@
+use log::LevelFilter;
 use serde::Deserialize;
 
-#[derive(Deserialize)]
+#[derive(Debug, Deserialize)]
 pub struct Config {
 	pub server: Server,
 }
@@ -11,8 +12,9 @@ impl Config {
 	}
 }
 
-#[derive(Deserialize)]
+#[derive(Debug, Deserialize)]
 pub struct Server {
+	pub log_level: LevelFilter,
 	pub api_http: Http,
 	pub health_http: Http,
 }
@@ -20,6 +22,7 @@ pub struct Server {
 impl Server {
 	pub fn new() -> Self {
 		Server {
+			log_level: LevelFilter::Warn,
 			api_http: Http{
 				host: "0.0.0.0".to_string(),
 				port: 3000,
@@ -32,7 +35,7 @@ impl Server {
 	}
 }
 
-#[derive(Deserialize)]
+#[derive(Debug, Deserialize)]
 pub struct Http {
 	pub host: String,
 	pub port: u16,

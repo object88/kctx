@@ -15,11 +15,11 @@ pub enum AppError {
 #[tokio::main]
 async fn main() -> Result<(), AppError> {
 	let mut c = Config::new();
-	let a: Args = args::new(&c).unwrap();
+	let a: Args = args::new(&mut c).unwrap();
 	a.parse();
 
 	// Set up logging
-	Builder::with_level("info")
+	Builder::with_level(c.server.log_level.as_str())
 			.with_target_writer("*", new_writer(tokio::io::stdout()))
 			.init();
 
@@ -29,7 +29,7 @@ async fn main() -> Result<(), AppError> {
 	let builder = http::new(c.server.api_http);
 	let http = match builder.build().await {
 		Ok(x) => x,
-		Err(e) => {
+		Err(_e) => {
 			return Err(AppError::ConfigReadError);
 		}
 	};
@@ -37,7 +37,7 @@ async fn main() -> Result<(), AppError> {
 	let status_builder = http::new(c.server.health_http);
 	let status_http = match status_builder.build().await {
 		Ok(x) => x,
-		Err(e) => {
+		Err(_e) => {
 			return Err(AppError::ConfigReadError);
 		}
 	};

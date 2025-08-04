@@ -215,6 +215,7 @@ name = "common"
 version = "0.1.0"
 dependencies = [
  "built",
+ "log",
  "serde",
 ]
 
