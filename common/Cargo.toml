@@ -4,7 +4,8 @@ edition.workspace = true
 version.workspace = true
 
 [dependencies]
-serde = { workspace = true }
+log.workspace = true
+serde.workspace = true
 
 [build-dependencies]
 built = { version = "0.8.0" }
