@@ -14,7 +14,7 @@ clap.workspace = true
 common = { path = "../common" }
 dirs.workspace = true
 log.workspace = true
-structured-logger = { version = "1.0.4" }
+structured-logger = { version = "1.0.5" }
 thiserror.workspace = true
 tokio.workspace = true
 tokio-util.workspace = true
